@@ -1,5 +1,35 @@
+@media screen and (min-width: 380px) {
 .container{
-    width: 400px;
+    width: 320px;
     margin: 0 auto;
     background-color: blue;
 }
+
+}
+
+@media screen and (min-width: 560px) {
+.container{
+    width: 380px;
+    margin: 0 auto;
+    background-color: blue;
+}
+
+}
+
+@media screen and (min-width: 800px) {
+.container{
+    width: 768px;
+    margin: 0 auto;
+    background-color: blue;
+}
+
+}
+
+@media screen and (min-width: 1440px) {
+    .container{
+        width: 1220px;
+        margin: 0 auto;
+        background-color: blue;
+    }
+    
+    }

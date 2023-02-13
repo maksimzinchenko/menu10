@@ -2,13 +2,38 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 380px;
     background-color: bisque;
-    margin: 5px;
-    padding: 5px;
+    padding: 0;
+    padding-top: 5px;
+    padding-right: 10px;
 }
 
 .itemImage {
     width: 100px;
     height: 100px;
+    background-color: aqua;
+}
+
+.itemTitle {
+    margin: 0;
+    padding: 0;
+    background-color: blueviolet;
+}
+
+.itemDescription {
+    background-color: chartreuse;
+    margin: 0;
+    padding: 0;
+}
+
+.itemPrice {
+    background-color: crimson;
+    margin: 0;
+    padding: 0;
+}
+
+.addToCartButton {
+    background-color: darkcyan;
+    margin: 0;
+    padding: 0;
 }
