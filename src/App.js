@@ -124,7 +124,7 @@ function App() {
 
 
   useEffect(()=>{
-    if (menuItems.length === 0) {
+    if (cartItems.length === 0) {
       tg.MainButton.hide();
     } else {
       tg.MainButton.show();
@@ -132,7 +132,7 @@ function App() {
         text: `Buy ${getTotalPrice(cartItems)}`,
       });
     }
-  }, []);
+  }, [cartItems, tg.MainButton]);
 
   const removeFromCart = (cartItem) => {
     const existingItem = cartItems.find((item) => item.id === cartItem.id);
