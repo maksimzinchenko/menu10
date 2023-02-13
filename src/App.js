@@ -103,6 +103,17 @@ function App() {
   //     .catch((error) => console.error(error));
   // }, []);
 
+  useEffect(()=>{
+    if (cartItems.length === 0) {
+      tg.MainButton.hide();
+    } else {
+      tg.MainButton.show();
+      tg.MainButton.setParams({
+        text: `Buy ${getTotalPrice(cartItems)}`,
+      });
+    }
+  });
+
   const addToCart = (menuItem) => {
     const existingItem = cartItems.find((item) => item.id === menuItem.id);
     if (existingItem) {
@@ -118,16 +129,7 @@ function App() {
 
 
 
-  useEffect(()=>{
-    if (cartItems.length === 0) {
-      tg.MainButton.hide();
-    } else {
-      tg.MainButton.show();
-      tg.MainButton.setParams({
-        text: `Buy ${getTotalPrice(cartItems)}`,
-      });
-    }
-  }, [cartItems, tg.MainButton]);
+
 
   const removeFromCart = (cartItem) => {
     const existingItem = cartItems.find((item) => item.id === cartItem.id);
