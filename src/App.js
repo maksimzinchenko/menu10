@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 
+
+
 import Header from "./components/header/Header";
 import Menu from "./components/menu/Menu";
 import Cart from "./components/cart/Cart";
@@ -10,6 +12,11 @@ import "./App.css";
 function App() {
   const [menuItems, setMenuItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
+
+
+    // useEffect(() => {
+    //     tg.ready();
+    // }, [tg])
 
   const isTelegram =
     typeof window.tg !== "undefined" ||
@@ -31,7 +38,7 @@ function App() {
     {'id': '4472f08c-9c9a-4902-83aa-1247188c7eb8', 'name': 'Meal 6', 'price': 15, 'is_active': true, 'order': 1},
     {'id': 'dc74415a-38b0-418e-bd0d-af95a4c02004', 'name': 'Meal 7', 'price': 0.5, 'is_active': true, 'order': 1},
     ]);
-  }, []);
+  }, [isTelegram]);
 
   // useEffect(() => {
   //   fetch("/menu_items")
