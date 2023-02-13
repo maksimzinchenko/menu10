@@ -105,20 +105,15 @@ function App() {
 
   const addToCart = (menuItem) => {
     const existingItem = cartItems.find((item) => item.id === menuItem.id);
-    let newItems = [];
     if (existingItem) {
-      newItems = cartItems.map((item) =>
+      setCartItems(cartItems.map((item) =>
         item.id === menuItem.id
           ? { ...item, quantity: item.quantity + 1 }
           : item
-      );
+      ));
     } else {
-      newItems = [...cartItems, { ...menuItem, quantity: 1 }];
+      setCartItems([...cartItems, { ...menuItem, quantity: 1 }]);
     }
-
-    setCartItems(newItems);
-
-    
   };
 
 
