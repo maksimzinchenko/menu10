@@ -7,17 +7,25 @@ import Menu from "./components/menu/Menu";
 import Cart from "./components/cart/Cart";
 import Footer from "./components/footer/Footer";
 
+import {useTelegram} from "./hooks/useTelegram";
+
 import "./App.css";
+
+const getTotalPrice = (items = []) => {
+  return items.reduce((acc, item) => {
+      return acc += item.price
+  }, 0)
+}
 
 function App() {
   const [menuItems, setMenuItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [isStandalone, setStandalone] = useState(true);
+  const {tg} = useTelegram();
 
-
-    // useEffect(() => {
-    //     tg.ready();
-    // }, [tg])
+    useEffect(() => {
+        tg.ready();
+    }, [tg])
 
   const isTelegram = window.Telegram.WebApp.initData.length > 0;
 
@@ -50,17 +58,29 @@ function App() {
 
   const addToCart = (menuItem) => {
     const existingItem = cartItems.find((item) => item.id === menuItem.id);
+    let newItems = [];
     if (existingItem) {
-      setCartItems(
+      newItems = 
         cartItems.map((item) =>
           item.id === menuItem.id
             ? { ...item, quantity: item.quantity + 1 }
             : item
-        )
+        
       );
     } else {
-      setCartItems([...cartItems, { ...menuItem, quantity: 1 }]);
+      newItems = [...cartItems, { ...menuItem, quantity: 1 }];
     }
+
+    setCartItems(newItems);
+
+    if(newItems.length === 0) {
+      tg.MainButton.hide();
+  } else {
+      tg.MainButton.show();
+      tg.MainButton.setParams({
+          text: `Buy ${getTotalPrice(newItems)}`
+      })
+  }
   };
 
   const removeFromCart = (cartItem) => {
