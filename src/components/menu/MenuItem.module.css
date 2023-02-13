@@ -2,7 +2,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 0.5rem;
+    width: 380px;
     background-color: bisque;
-    
+    margin: 5px;
+    padding: 5px;
+}
+
+.itemImage {
+    width: 100px;
+    height: 100px;
 }

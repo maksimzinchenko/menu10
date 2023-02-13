@@ -6,7 +6,7 @@ import classes from './MenuItem.module.css';
 export default function MenuItem({ item, onClick }) {
   return (
     <div className={`${commonClasses.container} ${classes.menuItem}`}>
-      <img src={item.image} alt={item.name} />
+      <img className={classes.itemImage} src={item.image} alt={item.name} />
       <h3>{item.name}</h3>
       <p>{item.description}</p>
       <p>{item.price} $.</p>

@@ -9,7 +9,7 @@ export default function Header({isStandalone}) {
 
   return (
     <header>
-      <div className={`${classes.header} ${commonClasses.container}`}>{headerTitle}</div>
+      <div className={`${commonClasses.container} ${classes.header}`}>{headerTitle}</div>
     </header>
   );
 }

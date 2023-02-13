@@ -6,7 +6,7 @@ import classes from "./Footer.module.css";
 export default function Footer() {
   return (
     <footer>
-      <div className={`${classes.footer} ${commonClasses.container}`}>
+      <div className={`${commonClasses.container} ${classes.footer}`}>
         Footer
       </div>
     </footer>
