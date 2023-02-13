@@ -11,7 +11,7 @@ import "./App.css";
 
 const getTotalPrice = (items = []) => {
   return items.reduce((acc, item) => {
-    return (acc += item.price);
+    return (acc += item.price * item.quantity);
   }, 0);
 };
 
@@ -125,20 +125,7 @@ function App() {
     } else {
       setCartItems([...cartItems, { ...menuItem, quantity: 1 }]);
     }
-
-    if (cartItems.length === 0) {
-      tg.MainButton.hide();
-    } else {
-      tg.MainButton.show();
-      tg.MainButton.setParams({
-        text: `Buy ${getTotalPrice(cartItems)}`,
-      });
-    }
   };
-
-
-
-
 
   const removeFromCart = (cartItem) => {
     const existingItem = cartItems.find((item) => item.id === cartItem.id);
