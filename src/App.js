@@ -19,11 +19,11 @@ function App() {
     // }, [tg])
 
   const isTelegram =
-    typeof window.Telegram.WebApp !== "undefined";
+    window.Telegram.WebApp.initData.length > 0;
 
   useEffect(()=>{
     if (isTelegram) {
-      alert(window.Telegram.WebApp.initData);
+      alert('In telegram');
     } else {
       alert('standlone');
     };
