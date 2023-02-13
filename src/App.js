@@ -118,6 +118,12 @@ function App() {
 
     setCartItems(newItems);
 
+    
+  };
+
+
+
+  useEffect(()=>{
     if (menuItems.length === 0) {
       tg.MainButton.hide();
     } else {
@@ -126,7 +132,7 @@ function App() {
         text: `Buy ${getTotalPrice(cartItems)}`,
       });
     }
-  };
+  }, []);
 
   const removeFromCart = (cartItem) => {
     const existingItem = cartItems.find((item) => item.id === cartItem.id);
