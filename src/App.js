@@ -12,20 +12,20 @@ import "./App.css";
 function App() {
   const [menuItems, setMenuItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
+  const [isStandalone, setStandalone] = useState(true);
 
 
     // useEffect(() => {
     //     tg.ready();
     // }, [tg])
 
-  const isTelegram =
-    window.Telegram.WebApp.initData.length > 0;
+  const isTelegram = window.Telegram.WebApp.initData.length > 0;
 
   useEffect(()=>{
     if (isTelegram) {
-      alert('In telegram');
+      setStandalone(false);
     } else {
-      alert('standlone');
+      setStandalone(true);
     };
     setMenuItems([
       {'id': '59a46597-e48d-4dc1-b014-fd3908649c6d', 'name': 'Meal 1', 'price': 2.5, 'is_active': true, 'order': 1},
@@ -84,7 +84,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
+      <Header isStandalone={isStandalone} />
       <main>
         <Menu items={menuItems} addToCart={addToCart} />
         <Cart
