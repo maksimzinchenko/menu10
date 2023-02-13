@@ -123,7 +123,7 @@ function App() {
     } else {
       tg.MainButton.show();
       tg.MainButton.setParams({
-        text: `Buy ${getTotalPrice(menuItems)}`,
+        text: `Buy ${getTotalPrice(cartItems)}`,
       });
     }
   };
