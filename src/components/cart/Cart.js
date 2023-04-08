@@ -7,7 +7,7 @@ import classes from './Cart.module.css';
 
 export default function Cart({ items, removeFromCart, clearCart }) {
   const total = items.reduce((sum, item) => sum + item.price, 0);
-  
+
   return (
     <div className={`${commonClasses.container} ${classes.cart}`}>
       <h2>Корзина</h2>

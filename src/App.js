@@ -1,15 +1,15 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react"
 
 
 
-import Header from "./components/header/Header";
-import Menu from "./components/menu/Menu";
-import Cart from "./components/cart/Cart";
-import Footer from "./components/footer/Footer";
+import Header from "./components/header/Header"
+import Menu from "./components/menu/Menu"
+import Cart from "./components/cart/Cart"
+import Footer from "./components/footer/Footer"
 
-import { useTelegram } from "./hooks/useTelegram";
+import { useTelegram } from "./hooks/useTelegram"
 
-import "./App.css";
+import "./App.css"
 
 
 const MENUITEMS = [
@@ -69,30 +69,30 @@ const MENUITEMS = [
     order: 1,
     image: "../media/bakery.jpg",
   },
-];
+]
 
 const getTotalPrice = (items = []) => {
   return items.reduce((acc, item) => {
-    return (acc += item.price * item.quantity);
-  }, 0);
-};
+    return (acc += item.price * item.quantity)
+  }, 0)
+}
 
 function App() {
-  const [menuItems, setMenuItems] = useState([]);
-  const [cartItems, setCartItems] = useState([]);
-  const [isStandalone, setStandalone] = useState(true);
+  const [menuItems, setMenuItems] = useState([])
+  const [cartItems, setCartItems] = useState([])
+  const [isStandalone, setStandalone] = useState(true)
   // eslint-disable-next-line
-  const [showCart, setShowCart] = useState(false);
-  const { tg, queryId } = useTelegram();
+  const [showCart, setShowCart] = useState(false)
+  const { tg, queryId } = useTelegram()
 
   const onSendData = useCallback(() => {
     // eslint-disable-next-line
     const data = {
-        products: cartItems,
-        queryId,
-    };
+      products: cartItems,
+      queryId,
+    }
 
-    console.log('pressed send');
+    console.log('pressed send')
     // fetch('http://85.119.146.179:8000/web-data', {
     //     method: 'POST',
     //     headers: {
@@ -100,30 +100,30 @@ function App() {
     //     },
     //     body: JSON.stringify(data)
     // })
-}, [queryId, cartItems])
-
-useEffect(() => {
-    tg.onEvent('mainButtonClicked', onSendData)
-    return () => {
-        tg.offEvent('mainButtonClicked', onSendData)
-    }
-}, [tg, onSendData])
+  }, [queryId, cartItems])
 
   useEffect(() => {
-    tg.ready();
+    tg.onEvent('mainButtonClicked', onSendData)
+    return () => {
+      tg.offEvent('mainButtonClicked', onSendData)
+    }
+  }, [tg, onSendData])
 
-  }, [tg]);
+  useEffect(() => {
+    tg.ready()
 
-  const isTelegram = window.Telegram.WebApp.initData.length > 0;
+  }, [tg])
+
+  const isTelegram = window.Telegram.WebApp.initData.length > 0
 
   useEffect(() => {
     if (isTelegram) {
-      setStandalone(false);
+      setStandalone(false)
     } else {
-      setStandalone(true);
+      setStandalone(true)
     }
-    setMenuItems(MENUITEMS);
-  }, [isTelegram]);
+    setMenuItems(MENUITEMS)
+  }, [isTelegram])
 
   // useEffect(() => {
   //   fetch("/menu_items")
@@ -135,34 +135,42 @@ useEffect(() => {
   //     .catch((error) => console.error(error));
   // }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     if (cartItems.length === 0) {
-      tg.MainButton.hide();
+      if (isTelegram) {
+        tg.MainButton.hide()
+      } else {
+        setShowCart(false)
+      }
     } else {
-      tg.MainButton.show();
-      tg.MainButton.setParams({
-        text: `Order (total: $${getTotalPrice(cartItems)})`,
-      });
+      if (isTelegram) {
+        tg.MainButton.show()
+        tg.MainButton.setParams({
+          text: `Order (total: $${getTotalPrice(cartItems)})`,
+        })
+      } else {
+        setShowCart(true)
+      }
     }
-  });
+  }, [cartItems, isTelegram, tg.MainButton]);
 
   const addToCart = (menuItem) => {
-    const existingItem = cartItems.find((item) => item.id === menuItem.id);
+    const existingItem = cartItems.find((item) => item.id === menuItem.id)
     if (existingItem) {
       setCartItems(cartItems.map((item) =>
         item.id === menuItem.id
           ? { ...item, quantity: item.quantity + 1 }
           : item
-      ));
+      ))
     } else {
-      setCartItems([...cartItems, { ...menuItem, quantity: 1 }]);
+      setCartItems([...cartItems, { ...menuItem, quantity: 1 }])
     }
-  };
+  }
 
   const removeFromCart = (cartItem) => {
-    const existingItem = cartItems.find((item) => item.id === cartItem.id);
+    const existingItem = cartItems.find((item) => item.id === cartItem.id)
     if (existingItem.quantity === 1) {
-      setCartItems(cartItems.filter((item) => item.id !== cartItem.id));
+      setCartItems(cartItems.filter((item) => item.id !== cartItem.id))
     } else {
       setCartItems(
         cartItems.map((item) =>
@@ -170,20 +178,20 @@ useEffect(() => {
             ? { ...item, quantity: item.quantity - 1 }
             : item
         )
-      );
+      )
     }
-  };
+  }
 
   const clearCart = () => {
-    setCartItems([]);
-  };
+    setCartItems([])
+  }
 
   return (
     <div className="App">
       <Header isStandalone={isStandalone} />
       <main>
-        { !showCart && <Menu items={menuItems} addToCart={addToCart} />}
-        { showCart && <Cart
+        {!showCart && <Menu items={menuItems} addToCart={addToCart} />}
+        {showCart && <Cart
           items={cartItems}
           removeFromCart={removeFromCart}
           clearCart={clearCart}
@@ -191,7 +199,7 @@ useEffect(() => {
       </main>
       <Footer />
     </div>
-  );
+  )
 }
 
 export default App;
