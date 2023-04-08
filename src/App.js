@@ -139,7 +139,7 @@ useEffect(() => {
     } else {
       tg.MainButton.show();
       tg.MainButton.setParams({
-        text: `View order ($${getTotalPrice(cartItems)})`,
+        text: `Order (total: $${getTotalPrice(cartItems)})`,
       });
     }
   });
