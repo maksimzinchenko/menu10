@@ -13,4 +13,3 @@ export default function CartItem({ item, onRemove }) {
       </div>
     );
   }
-  

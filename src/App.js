@@ -81,10 +81,12 @@ function App() {
   const [menuItems, setMenuItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [isStandalone, setStandalone] = useState(true);
+  // eslint-disable-next-line
   const [showCart, setShowCart] = useState(false);
   const { tg, queryId } = useTelegram();
 
   const onSendData = useCallback(() => {
+    // eslint-disable-next-line
     const data = {
         products: cartItems,
         queryId,
